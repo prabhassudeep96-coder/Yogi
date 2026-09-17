@@ -255,11 +255,53 @@ class TestSettings:
             "landline": "080-1234567",
             "whatsapp": "+919999999999",
             "gmail": "test@yogi.com",
+            "location": "TEST Shop No. 12, Main Road",
+            "maps_url": "https://maps.google.com/?q=test",
             "footer_info": "Footer text",
         }
         r = requests.put(f"{BASE_URL}/api/admin/settings", json=payload, headers=auth_headers, timeout=30)
         assert r.status_code == 200
         # GET public
         r2 = requests.get(f"{BASE_URL}/api/settings", timeout=30)
-        assert r2.json()["landline"] == "080-1234567"
-        assert r2.json()["whatsapp"] == "+919999999999"
+        body = r2.json()
+        assert body["landline"] == "080-1234567"
+        assert body["whatsapp"] == "+919999999999"
+        assert body["location"] == "TEST Shop No. 12, Main Road"
+        assert body["maps_url"] == "https://maps.google.com/?q=test"
+
+    def test_empty_contact_persists(self, auth_headers):
+        """When all contact fields cleared, public settings should still return them as empty strings."""
+        payload = {
+            "brand_name": "YOGI INTERNET",
+            "location_text": "GAURIBIDANURU",
+            "about": "YOGI INTERNET is an internet & online service centre in Gauribidanuru that helps customers with online applications, government services, documents and other internet-related services.",
+            "landline": "",
+            "whatsapp": "",
+            "gmail": "",
+            "location": "",
+            "maps_url": "",
+            "footer_info": "",
+        }
+        r = requests.put(f"{BASE_URL}/api/admin/settings", json=payload, headers=auth_headers, timeout=30)
+        assert r.status_code == 200
+        r2 = requests.get(f"{BASE_URL}/api/settings", timeout=30)
+        b = r2.json()
+        assert b["landline"] == "" and b["whatsapp"] == "" and b["gmail"] == "" and b["location"] == "" and b["maps_url"] == ""
+
+    def test_restore_final(self, auth_headers):
+        """Final: restore settings per review request (gmail set, others empty)."""
+        payload = {
+            "brand_name": "YOGI INTERNET",
+            "location_text": "GAURIBIDANURU",
+            "about": "YOGI INTERNET is an internet & online service centre in Gauribidanuru that helps customers with online applications, government services, documents and other internet-related services.",
+            "landline": "",
+            "whatsapp": "",
+            "gmail": "g1yogimelyagp@gmail.com",
+            "location": "",
+            "maps_url": "",
+            "footer_info": "",
+        }
+        r = requests.put(f"{BASE_URL}/api/admin/settings", json=payload, headers=auth_headers, timeout=30)
+        assert r.status_code == 200
+        r2 = requests.get(f"{BASE_URL}/api/settings", timeout=30)
+        assert r2.json()["gmail"] == "g1yogimelyagp@gmail.com"

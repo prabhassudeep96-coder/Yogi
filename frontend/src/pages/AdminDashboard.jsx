@@ -493,7 +493,7 @@ function ContactManager({ settings, reload }) {
           </div>
           <div className="space-y-1.5">
             <Label>Location Text</Label>
-            <Input value={form.location_text || ""} onChange={(e) => set("location_text", e.target.value)} data-testid="settings-location" />
+            <Input value={form.location_text || ""} onChange={(e) => set("location_text", e.target.value)} data-testid="settings-location-text" />
           </div>
         </div>
         <div className="space-y-1.5">

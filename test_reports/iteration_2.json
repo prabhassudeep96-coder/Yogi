@@ -1,0 +1,37 @@
+{
+  "summary": "Retested empty Contact-Us footer bug fix + Location feature end-to-end. Backend pytest 32/32 passed (auth, admin guard, public routes, application CRUD, categories, documents, settings incl. location/maps_url + empty-state persistence + final restore). Frontend E2E via Playwright verified: (1) Initial footer renders contact-gmail row (mailto:g1yogimelyagp@gmail.com) — footer is NOT visually empty; (2) Admin Contact tab saves location/maps_url — public footer shows contact-location with 'View on Google Maps' link to maps_url; (3) Clearing ALL contact fields renders contact-empty placeholder and no contact rows; (4) Language toggle switches Contact Us heading to Kannada 'ನಮ್ಮನ್ನು ಸಂಪರ್ಕಿಸಿ' and back; (5) Regression: trending SBI ASHA SCHOLARSHIP and Seva sindhu still present. Final settings restored: gmail=g1yogimelyagp@gmail.com; landline/whatsapp/location/maps_url/footer_info all empty.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [
+      {"component": "AdminDashboard ContactManager", "issue": "Duplicate data-testid 'settings-location' used for BOTH 'Location Text' field (line 496) and 'Location Name/Address' field (line 519). Fixed here by renaming the first to 'settings-location-text' so 'settings-location' now unambiguously targets Location Name/Address per review-spec.", "selector": "[data-testid=settings-location]", "priority": "LOW"}
+    ],
+    "integration_issues": [],
+    "design_issues": [
+      {"screen": "ApplicationModal", "issues": ["Pre-existing Radix Dialog a11y warning: DialogContent missing DialogDescription / aria-describedby (from iter1, not fixed)."]}
+    ]
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_yogi_backend.py",
+    "/app/test_reports/pytest/pytest_results.xml"
+  ],
+  "action_items": [
+    "(Optional a11y) Add DialogDescription to ApplicationModal DialogContent."
+  ],
+  "critical_code_review_comments": [
+    "AdminDashboard.jsx had duplicate data-testid 'settings-location' — fixed by renaming location_text field to 'settings-location-text'. Recommend never sharing testids across distinct inputs.",
+    "Footer.jsx hasContact logic correctly gates the empty placeholder using only landline/whatsapp/gmail/location (excludes location_text/footer_info) — matches spec.",
+    "Backend Settings model exposes location + maps_url and PUT /api/admin/settings replaces doc — good; empty strings persist as empty (not null), matching frontend truthy checks.",
+    "GET /api/settings does not require auth — correct (public footer).",
+    "ContactManager's useEffect populates form only after props.settings arrives; UI fills before this load may be overwritten (test-timing consideration, not a production bug)."
+  ],
+  "updated_files": [
+    "/app/frontend/src/pages/AdminDashboard.jsx (renamed duplicate testid settings-location -> settings-location-text on Location Text field)",
+    "/app/backend/tests/test_yogi_backend.py (added TestSettings.test_empty_contact_persists + test_restore_final; expanded update payload with location/maps_url)"
+  ],
+  "success_rate": {"backend": "100% (32/32)", "frontend": "100% for reviewed flows"},
+  "test_credentials": "prabhassudeep38@gmail.com / Yogi@31184 (also g1yogimelyagp@gmail.com / Yogi@31184)",
+  "seed_data_creation": "None persisted. Final live settings restored per review request: gmail=g1yogimelyagp@gmail.com, all other contact fields empty. Real applications (SBI ASHA SCHOLARSHIP, Seva sindhu) untouched.",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "Backend regression suite at /app/backend/tests/test_yogi_backend.py now covers location/maps_url + empty contact scenario. Frontend contact rows use conditional rendering per field; hasContact excludes brand/location_text/footer_info by design. Language toggle testid is 'lang-toggle' in Header.jsx. AdminDashboard ContactManager loads via useEffect on props.settings — always wait for settings-gmail to have prefilled value before overwriting in tests."
+}
