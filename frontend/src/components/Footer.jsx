@@ -7,6 +7,7 @@ export function Footer({ settings }) {
   const { t } = useLang();
   const s = settings || {};
   const wa = digits(s.whatsapp);
+  const hasContact = !!(s.landline || s.whatsapp || s.gmail || s.location);
   return (
     <footer className="mt-20 border-t border-border bg-muted/40" data-testid="site-footer">
       <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
@@ -37,6 +38,11 @@ export function Footer({ settings }) {
               {t("contact_us")}
             </h3>
             <div className="space-y-3">
+              {!hasContact ? (
+                <p className="rounded-lg border border-dashed border-border bg-background px-4 py-3 text-sm text-muted-foreground" data-testid="contact-empty">
+                  {t("contact_empty")}
+                </p>
+              ) : null}
               {s.landline ? (
                 <a
                   href={`tel:${digits(s.landline)}`}
