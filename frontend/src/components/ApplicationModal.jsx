@@ -5,6 +5,7 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
+  DialogDescription,
 } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -50,6 +51,7 @@ export function ApplicationModal({ app, open, onClose }) {
             <DialogTitle className="font-display text-2xl font-semibold tracking-tight" data-testid="modal-app-name">
               {app.name}
             </DialogTitle>
+            <DialogDescription className="sr-only">Application details for {app.name}</DialogDescription>
           </DialogHeader>
 
           {app.full_description || app.short_description ? (

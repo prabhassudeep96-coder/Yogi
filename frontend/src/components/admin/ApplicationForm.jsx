@@ -7,6 +7,7 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
+  DialogDescription,
   DialogFooter,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
@@ -132,6 +133,7 @@ export function ApplicationForm({ open, onClose, onSaved, editing, categories, m
           <DialogTitle className="font-display text-xl">
             {editing ? "Edit Application" : "Add New Application"}
           </DialogTitle>
+          <DialogDescription className="sr-only">Fill in the application details below.</DialogDescription>
         </DialogHeader>
 
         <div className="space-y-5 py-2">
