@@ -1,0 +1,105 @@
+{
+  "theme": "light_and_dark_toggle",
+  "typography": {
+    "fonts": {
+      "headings": "Outfit, sans-serif",
+      "body": "'IBM Plex Sans', sans-serif"
+    },
+    "imports": [
+      "@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Outfit:wght@300;400;500;600;700&display=swap');"
+    ],
+    "rules": "H1 max text-5xl on desktop, text-4xl on mobile with tracking-tight. Body uses leading-relaxed. NEVER use Inter for headings."
+  },
+  "colors": {
+    "archetype": "Swiss & High-Contrast with Trust accents (Blue & Orange)",
+    "variables": {
+      "light": {
+        "--background": "0 0% 100%",
+        "--foreground": "222.2 84% 4.9%",
+        "--primary": "221.2 83.2% 53.3%",
+        "--primary-foreground": "210 40% 98%",
+        "--secondary": "24.6 95% 53.1%",
+        "--secondary-foreground": "0 0% 100%",
+        "--muted": "210 40% 96.1%",
+        "--muted-foreground": "215.4 16.3% 46.9%",
+        "--accent": "210 40% 96.1%",
+        "--accent-foreground": "222.2 47.4% 11.2%",
+        "--destructive": "0 84.2% 60.2%",
+        "--destructive-foreground": "210 40% 98%",
+        "--border": "214.3 31.8% 91.4%",
+        "--input": "214.3 31.8% 91.4%",
+        "--ring": "221.2 83.2% 53.3%",
+        "--radius": "0.5rem"
+      },
+      "dark": {
+        "--background": "222.2 84% 4.9%",
+        "--foreground": "210 40% 98%",
+        "--primary": "217.2 91.2% 59.8%",
+        "--primary-foreground": "222.2 47.4% 11.2%",
+        "--secondary": "24.6 95% 53.1%",
+        "--secondary-foreground": "0 0% 100%",
+        "--muted": "217.2 32.6% 17.5%",
+        "--muted-foreground": "215 20.2% 65.1%",
+        "--accent": "217.2 32.6% 17.5%",
+        "--accent-foreground": "210 40% 98%",
+        "--destructive": "0 62.8% 30.6%",
+        "--destructive-foreground": "210 40% 98%",
+        "--border": "217.2 32.6% 17.5%",
+        "--input": "217.2 32.6% 17.5%",
+        "--ring": "212.7 26.8% 83.9%"
+      }
+    }
+  },
+  "visual_enhancers": {
+    "surfaces": "Use crisp 1px borders with subtle shadow-sm for cards. For header, use Glassmorphism (backdrop-blur-xl + bg-background/80) with a bottom border.",
+    "hover_states": "Interactive elements must have explicit hover states (e.g., hover:translate-y-[-2px] and shadow-md for cards, hover:bg-primary/90 for buttons)."
+  },
+  "components": {
+    "header": "Sticky nav. Custom CSS logo: `<div className=\"w-10 h-10 rounded-full bg-primary flex items-center justify-center text-primary-foreground font-bold text-xl\">Y</div>`. Next to it, text 'YOGI INTERNET' and subtitle 'GAURIBIDANURU' (text-xs text-muted-foreground).",
+    "search": "Prominent, centered hero search bar. Use Shadcn Input with a Search icon. Placeholder: 'Search applications, services, documents...'.",
+    "application_cards": "Use Shadcn Card. Flat design, rounded-lg. Must contain Name, Description, Category Badge, Status, Date, and 'View Details' button. Display inside a '🔥 TRENDING APPLICATIONS' section.",
+    "application_modal": "Use Shadcn Dialog. Show full description, start/last dates, status, Apply link, 'Documents Required' (check list), and 'Important Instructions' (muted box).",
+    "categories": "Include filters for: Government Services, Education, Jobs, Scholarships, Certificates, Banking, Insurance, Online Applications, Other Services.",
+    "footer": "Includes 'About YOGI INTERNET', editable description, and contact info (Landline, WhatsApp, Gmail clickable).",
+    "admin_dashboard": "Stat cards (Total Applications, Trending, Published, Unpublished, Ending Soon). Data tables for full CRUD on applications, document management, and contact info editing."
+  },
+  "layouts": {
+    "spacing": "Use p-6 or p-8 inside cards. Section padding py-16 to py-24. Mobile-first grid (grid-cols-1 md:grid-cols-2 lg:grid-cols-3) for application cards.",
+    "alignment": "Left-align forms and dense text. Center-align hero elements."
+  },
+  "motion": {
+    "animations": "Subtle, fast animations. Use `transition-transform duration-200` for cards. Respect `prefers-reduced-motion`."
+  },
+  "accessibility": {
+    "contrast": "Minimum 4.5:1 text contrast. Avoid fully transparent backgrounds for overlays.",
+    "testing": "All interactive and key informational elements MUST include a `data-testid` attribute (e.g., `data-testid=\"apply-button\"`)."
+  },
+  "media": {
+    "images": [
+      {
+        "url": "https://images.unsplash.com/photo-1758874573150-05c1b6b56407?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjY2NzV8MHwxfHNlYXJjaHwxfHx0eXBpbmclMjBrZXlib2FyZCUyMGRlc2t8ZW58MHx8fHwxNzg5NjUzMzI5fDA&ixlib=rb-4.1.0&q=85",
+        "description": "Person typing on laptop, use for 'About' section",
+        "category": "about_section"
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1775163024488-e88e4a71179f?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjY2NzV8MHwxfHNlYXJjaHw0fHxkb2N1bWVudHMlMjBkZXNrJTIwb2ZmaWNlfGVufDB8fHx8MTc4OTY1MzMyOXww&ixlib=rb-4.1.0&q=85",
+        "description": "Two people reviewing documents",
+        "category": "hero_background"
+      }
+    ],
+    "icons_library": "lucide-react"
+  },
+  "instructions_to_main_agent": [
+    "Inject the font import into src/index.css at the top.",
+    "Update src/index.css with the provided light and dark mode CSS variables.",
+    "Implement the home page with a prominent hero search and grid of 'Trending Applications'.",
+    "Implement the custom 'Y' circular logo using Tailwind classes.",
+    "Implement Application details modal using Shadcn Dialog with Documents Required and Important Instructions.",
+    "Implement Footer with clickable contact links (whatsapp://, mailto:, tel:).",
+    "Implement the secure Admin Dashboard with stat cards and CRUD data table for applications, documents, and contacts.",
+    "Use Shadcn UI components for complex interactions (Dialog, Select, Form, Table).",
+    "Do NOT use HTML <select> or <input type='date'>; use Shadcn alternatives.",
+    "Ensure the app is fully responsive across mobile, tablet, and desktop."
+  ],
+  "UNIVERSAL GUIDELINES FOR MAIN AGENT": "Do not center-align the app container (.App { text-align: center; } is banned). No 'transition: all' for universal selectors. Create depth through z-index and subtle shadows. Do not use AI-slop purple gradients. Never use emoji characters for icons; always use lucide-react. Add data-testid to everything. Do not use fully transparent backgrounds for overlays or headers."
+}
