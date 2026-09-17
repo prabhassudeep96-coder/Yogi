@@ -515,6 +515,14 @@ function ContactManager({ settings, reload }) {
           </div>
         </div>
         <div className="space-y-1.5">
+          <Label>Location Name / Address</Label>
+          <Input value={form.location || ""} onChange={(e) => set("location", e.target.value)} placeholder="Shop No. 12, Main Road, Gauribidanuru" data-testid="settings-location" />
+        </div>
+        <div className="space-y-1.5">
+          <Label>Google Maps URL (optional)</Label>
+          <Input value={form.maps_url || ""} onChange={(e) => set("maps_url", e.target.value)} placeholder="https://maps.google.com/…" data-testid="settings-maps-url" />
+        </div>
+        <div className="space-y-1.5">
           <Label>Footer Info (optional)</Label>
           <Textarea rows={2} value={form.footer_info || ""} onChange={(e) => set("footer_info", e.target.value)} data-testid="settings-footer" />
         </div>

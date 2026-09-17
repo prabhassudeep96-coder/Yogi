@@ -159,6 +159,8 @@ class Settings(BaseModel):
     landline: str = ""
     whatsapp: str = ""
     gmail: str = ""
+    location: str = ""
+    maps_url: str = ""
     footer_info: str = ""
 
 class LoginInput(BaseModel):

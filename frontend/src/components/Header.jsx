@@ -1,9 +1,11 @@
 import { useNavigate } from "react-router-dom";
-import { ShieldCheck } from "lucide-react";
+import { ShieldCheck, Languages } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useLang } from "@/context/LanguageContext";
 
 export function Header({ settings }) {
   const navigate = useNavigate();
+  const { lang, toggle, t } = useLang();
   const brand = settings?.brand_name || "YOGI INTERNET";
   const location = settings?.location_text || "GAURIBIDANURU";
 
@@ -29,16 +31,28 @@ export function Header({ settings }) {
             </div>
           </div>
         </div>
-        <Button
-          variant="ghost"
-          size="sm"
-          className="gap-2 text-muted-foreground hover:text-foreground"
-          onClick={() => navigate("/admin")}
-          data-testid="header-admin-link"
-        >
-          <ShieldCheck className="h-4 w-4" />
-          <span className="hidden sm:inline">Admin</span>
-        </Button>
+        <div className="flex items-center gap-1.5 sm:gap-2">
+          <Button
+            variant="outline"
+            size="sm"
+            className="gap-2 font-medium"
+            onClick={toggle}
+            data-testid="lang-toggle"
+          >
+            <Languages className="h-4 w-4" />
+            {lang === "en" ? "ಕನ್ನಡ" : "English"}
+          </Button>
+          <Button
+            variant="ghost"
+            size="sm"
+            className="gap-2 text-muted-foreground hover:text-foreground"
+            onClick={() => navigate("/admin")}
+            data-testid="header-admin-link"
+          >
+            <ShieldCheck className="h-4 w-4" />
+            <span className="hidden sm:inline">{t("admin")}</span>
+          </Button>
+        </div>
       </div>
     </header>
   );

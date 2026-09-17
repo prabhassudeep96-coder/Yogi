@@ -12,6 +12,7 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { resolveImg } from "@/lib/api";
 import { statusColor } from "@/components/ApplicationCard";
+import { useLang } from "@/context/LanguageContext";
 
 function fmt(d) {
   if (!d) return "—";
@@ -20,6 +21,7 @@ function fmt(d) {
 }
 
 export function ApplicationModal({ app, open, onClose }) {
+  const { t } = useLang();
   if (!app) return null;
   const img = resolveImg(app.thumbnail_url);
   return (
@@ -56,7 +58,7 @@ export function ApplicationModal({ app, open, onClose }) {
 
           {app.full_description || app.short_description ? (
             <div className="mt-4">
-              <h4 className="mb-1 text-sm font-semibold text-foreground">About / Description</h4>
+              <h4 className="mb-1 text-sm font-semibold text-foreground">{t("about_desc")}</h4>
               <p className="whitespace-pre-line text-sm leading-relaxed text-muted-foreground">
                 {app.full_description || app.short_description}
               </p>
@@ -66,13 +68,13 @@ export function ApplicationModal({ app, open, onClose }) {
           <div className="mt-5 grid grid-cols-2 gap-3">
             <div className="rounded-lg border border-border bg-muted/40 p-3">
               <div className="flex items-center gap-1.5 text-xs font-medium text-muted-foreground">
-                <CalendarDays className="h-3.5 w-3.5" /> Start Date
+                <CalendarDays className="h-3.5 w-3.5" /> {t("start_date")}
               </div>
               <div className="mt-1 text-sm font-semibold text-foreground">{fmt(app.start_date)}</div>
             </div>
             <div className="rounded-lg border border-border bg-muted/40 p-3">
               <div className="flex items-center gap-1.5 text-xs font-medium text-muted-foreground">
-                <CalendarClock className="h-3.5 w-3.5" /> Last Date
+                <CalendarClock className="h-3.5 w-3.5" /> {t("last_date_label")}
               </div>
               <div className="mt-1 text-sm font-semibold text-foreground">{fmt(app.last_date)}</div>
             </div>
@@ -83,7 +85,7 @@ export function ApplicationModal({ app, open, onClose }) {
               <Separator className="my-5" />
               <div>
                 <h4 className="mb-3 flex items-center gap-2 text-sm font-semibold text-foreground">
-                  <FileCheck2 className="h-4 w-4 text-primary" /> Documents Required
+                  <FileCheck2 className="h-4 w-4 text-primary" /> {t("documents_required")}
                 </h4>
                 <ul className="grid gap-2 sm:grid-cols-2" data-testid="modal-documents-list">
                   {app.documents_required.map((doc, i) => (
@@ -102,7 +104,7 @@ export function ApplicationModal({ app, open, onClose }) {
               <Separator className="my-5" />
               <div className="rounded-lg border border-secondary/30 bg-secondary/5 p-4">
                 <h4 className="mb-1 flex items-center gap-2 text-sm font-semibold text-foreground">
-                  <Info className="h-4 w-4 text-secondary" /> Important Instructions
+                  <Info className="h-4 w-4 text-secondary" /> {t("important_instructions")}
                 </h4>
                 <p className="whitespace-pre-line text-sm leading-relaxed text-muted-foreground">
                   {app.important_instructions}
@@ -115,7 +117,7 @@ export function ApplicationModal({ app, open, onClose }) {
             <div className="mt-6">
               <a href={app.apply_url} target="_blank" rel="noopener noreferrer">
                 <Button className="w-full gap-2" data-testid="modal-apply-button">
-                  Official Website / Apply Now
+                  {t("apply_now")}
                   <ExternalLink className="h-4 w-4" />
                 </Button>
               </a>
